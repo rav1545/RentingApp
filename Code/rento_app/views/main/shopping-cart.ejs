@@ -1,0 +1,77 @@
+<%- include ('../partials/header') %> 
+<%- include ('../partials/navigation') %> 
+
+<div class="container cart">
+  <% if (cart != null && !cart.paid) { %>
+  <div class="row">
+    <div class="col-md-11 col-sm-12 m-auto table-responsive">
+      <table class="table text-center">
+        <thead>
+          <tr >
+            <th>Listing</th>
+            <th>&nbsp;</th>
+            <th>Price</th>
+            <th>RentO's fee 1.5%</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% listings.forEach( listing => { %> <% if(listing != null) {%>
+          <tr class="my-auto">
+            <td>
+              <a
+              href="/listing/<%=listing.category.slug%>/<%=listing._id%>"
+            >
+              <img src="<%=listing.imagePath%>" class="img-small image-fluid" alt="listing thumbnail" />
+              </a>
+            </td>
+            <td>
+              <div class="float-left mb-3">
+                <a class="title-link" href="/listing/<%=listing.category.slug%>/<%=listing._id%>">
+                <h6 class="text-left"><%= listing.title %></h6> 
+                <p class="text-left">Listing #: <%= listing.productCode %></p>
+                <p class="text-left">Location: <%= listing.location %></p>
+              </div>
+              
+              </a>
+            </td>
+            <td>$<%= listing.price %></td>
+            <td>$<%= (listing.totalPrice * 0.015).toFixed(2) %></td>
+            <td>
+              <a
+                href="/remove/<%=listing._id%>"
+                class="btn btn-danger btn-sm button-style-danger"
+                >Remove</a
+              >
+            </td>
+          </tr>
+          <% } %> <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<hr>
+  <div class="row mt-4 mr-auto">
+    <div class="col-md-11 col-sm-12 m-auto">
+      <strong>SubTotal: &nbsp;&nbsp;&nbsp;&nbsp;$<%= cart.totalCost %> </strong><br>
+      <strong>RentO's fee: $<%= (cart.totalCost * 0.015).toFixed(2) %> </strong><br>
+      <strong>Total: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$<%= Math.floor((cart.totalCost + (cart.totalCost * 0.015)) * 100) / 100  %> </strong>
+    </div>
+  </div>
+  <div class="row mt-2 mr-auto">
+    <div class="col-md-11 col-sm-12 m-auto">
+      <a href="/checkout" class="btn btn-dark button-style">Checkout</a>
+    </div>
+  </div>
+  <% } else { %>
+  <div class="row text-center">
+    <div class="col-md-9 col-sm-9 m-auto">
+      <h2>No listings in the cart</h2>
+    </div>
+  </div>
+  <% } %>
+</div>
+
+  <%- include ('../partials/footer') %> 

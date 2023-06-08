@@ -1,0 +1,253 @@
+<%- include ('../partials/header') %> 
+<%- include ('../partials/navigation') %> 
+
+<hr class="gradient-style" />
+
+<!-- Latest listings slider -->
+<div class="container mb-4 mt-4">
+  <!--Carousel Wrapper for listing-->
+  <div id="Listings-carousel" class="carousel slide carousel-multi-item" data-ride="carousel">
+    <!--Controls to scroll the listings left or right.-->
+    <div class="controls-top mb-2">
+      <div class="row">
+        <div class="col-8">
+          <h3>Latest Listings</h3>
+        </div>
+        <div class="col-4">
+          <div class="controls float-right hidden-xs">
+            <a class="left fa fa-chevron-left btn btn" href="#Listings-carousel" data-slide="prev"></a> 
+            <a class="right fa fa-chevron-right btn" href="#Listings-carousel" data-slide="next"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Slides-->
+    <div class="carousel-inner" role="listbox">
+      <!--First slide-->
+      <div class="carousel-item active">
+        <div class="row">
+          <% for(let i=0; i<3; i++) { %>
+          <div class="col-md-4 listing-index-box">
+            <div class="single-listing d-flex flex-column h-100">
+              <a class="title-link" href="/listing/<%=listings[i].category.slug%>/<%=listings[i]._id%>">
+                <img src="<%= listings[i].imagePath %>" alt="Listing" class="img-fluid"/>
+              </a>
+              <div class="listing-info">
+                <a class="title-link" href="/listing/<%=listings[i].category.slug%>/<%=listings[i]._id%>">
+                  <h6 class="mt-2 mb-2"><%= listings[i].title %></h6>
+                </a>
+                <div class="price">$<%= listings[i].price %></div>
+              </div>
+              <% if(listings[i].available) {%>
+              <a href="/add-to-cart/<%=listings[i]._id%>" class="btn btn-block btn-secondary button-style mt-auto mb-2">
+                Add to Shopping Cart
+              </a>
+              <% } else { %>
+              <a href="#" class="btn btn-block btn-danger button-style-danger mt-2 mb-2"> Currently being Rented! </a>
+              <%} %>
+            </div>
+          </div>
+          <%}%>
+        </div>
+      </div>
+      <!--/.First slide-->
+
+      <!--Second slide-->
+      <div class="carousel-item">
+        <div class="row">
+          <% for(let i=3; i<6; i++) { %>
+          <div class="col-md-4 listing-index-box">
+            <div class="single-listing d-flex flex-column h-100">
+              <a class="title-link" href="/listing/<%=listings[i].category.slug%>/<%=listings[i]._id%>">
+                <img src="<%= listings[i].imagePath %>" alt="listing" class="img-fluid"/></a>
+              <div class="listing-info">
+                <a
+                  class="title-link"
+                  href="/listing/<%=listings[i].category.slug%>/<%=listings[i]._id%>">
+                  <h6 class="mt-2 mb-2"><%= listings[i].title %></h6>
+                </a>
+                <div class="price">$<%= listings[i].price %></div>
+              </div>
+              <% if(listings[i].available) {%>
+              <a href="/add-to-cart/<%=listings[i]._id%>" class="btn btn-block btn-secondary button-style mt-auto mb-2">
+                Add to Shopping Cart
+              </a>
+              <% } else { %>
+              <a href="#" class="btn btn-block btn-danger button-style-danger mt-2 mb-2">
+                    Currently being Rented!
+              </a>
+              <%} %>
+            </div>
+          </div>
+          <%}%>
+        </div>
+      </div>
+      <!--/.Second slide-->
+
+      <!--Third slide-->
+      <div class="carousel-item">
+        <div class="row">
+          <% for(let i=6; i<9; i++) { %>
+          <div class="col-md-4 listing-index-box">
+            <div class="single-listing d-flex flex-column h-100">
+              <a class="title-link" href="/listing/<%=listings[i].category.slug%>/<%=listings[i]._id%>">
+                <img src="<%= listings[i].imagePath %>" alt="Listing" class="img-fluid"/>
+              </a>
+              <div class="listing-info">
+                <a class="title-link" href="/listing/<%=listings[i].category.slug%>/<%=listings[i]._id%>">
+                  <h6 class="mt-2 mb-2"><%= listings[i].title %></h6>
+                </a>
+                <div class="price">$<%= listings[i].price %></div>
+              </div>
+              <% if(listings[i].available) {%>
+              <a href="/add-to-cart/<%=listings[i]._id%>" class="btn btn-block btn-secondary button-style mt-auto mb-2">
+                Add to Shopping Cart
+              </a>
+              <% } else { %>
+              <a href="#" class="btn btn-block btn-danger button-style-danger mt-2 mb-2">
+                Currently being Rented!
+              </a>
+              <%} %>
+            </div>
+          </div>
+          <%}%>
+        </div>
+      </div>
+      <!--/.Third slide-->
+    </div>
+    <!--/.Slides-->
+  </div>
+  <!--/.Carousel Wrapper-->
+</div>
+
+<!-- Random listings slider -->
+<div class="container mb-4 mt-4">
+  <!--Carousel Wrapper for listing-->
+  <div id="Random_Listings-carousel" class="carousel slide carousel-multi-item" data-ride="carousel">
+    <!--Controls to scroll the listings left or right.-->
+    <div class="controls-top mb-2">
+      <div class="row">
+        <div class="col-8">
+          <h3>Random Listings</h3>
+        </div>
+        <div class="col-4">
+          <div class="controls float-right hidden-xs">
+            <a class="left fa fa-chevron-left btn btn" href="#Random_Listings-carousel" data-slide="prev"></a> 
+            <a class="right fa fa-chevron-right btn" href="#Random_Listings-carousel" data-slide="next"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Slides-->
+    <div class="carousel-inner" role="listbox">
+      <!--First slide-->
+      <div class="carousel-item active">
+        <div class="row">
+          <% 
+            var max = listings.length;
+            var min = 0;
+            function ranNum(min, max) {
+              return Math.floor(Math.random() * (max - min) + min);
+            }
+            for(let i=0; i<3; i++) { 
+              z = ranNum(min, max);
+          %>
+          <div class="col-md-4 listing-index-box">
+            <div class="single-listing d-flex flex-column h-100">
+              <a class="title-link" href="/listing/<%=listings[z].category.slug%>/<%=listings[z]._id%>">
+                <img src="<%= listings[z].imagePath %>" alt="Listing" class="img-fluid"/>
+              </a>
+              <div class="listing-info">
+                <a class="title-link" href="/listing/<%=listings[z].category.slug%>/<%=listings[z]._id%>">
+                  <h6 class="mt-2 mb-2"><%= listings[z].title %></h6>
+                </a>
+                <div class="price">$<%= listings[z].price %></div>
+              </div>
+              <% if(listings[z].available) {%>
+              <a href="/add-to-cart/<%=listings[z]._id%>" class="btn btn-block btn-secondary button-style mt-auto mb-2">
+                Add to Shopping Cart
+              </a>
+              <% } else { %>
+              <a href="#" class="btn btn-block btn-danger button-style-danger mt-2 mb-2"> Currently being Rented! </a>
+              <%} %>
+            </div>
+          </div>
+          <%}%>
+        </div>
+      </div>
+      <!--/.First slide-->
+
+      <!--Second slide-->
+      <div class="carousel-item">
+        <div class="row">
+          <% for(let i=0; i<3; i++) { 
+            z = ranNum(min, max);
+          %>
+          <div class="col-md-4 listing-index-box">
+            <div class="single-listing d-flex flex-column h-100">
+              <a class="title-link" href="/listing/<%=listings[z].category.slug%>/<%=listings[z]._id%>">
+                <img src="<%= listings[z].imagePath %>" alt="listing" class="img-fluid"/></a>
+              <div class="listing-info">
+                <a
+                  class="title-link"
+                  href="/listing/<%=listings[z].category.slug%>/<%=listings[z]._id%>">
+                  <h6 class="mt-2 mb-2"><%= listings[z].title %></h6>
+                </a>
+                <div class="price">$<%= listings[z].price %></div>
+              </div>
+              <% if(listings[z].available) {%>
+              <a href="/add-to-cart/<%=listings[z]._id%>" class="btn btn-block btn-secondary button-style mt-auto mb-2">
+                Add to Shopping Cart
+              </a>
+              <% } else { %>
+              <a href="#" class="btn btn-block btn-danger button-style-danger mt-2 mb-2">
+                    Currently being Rented!
+              </a>
+              <%} %>
+            </div>
+          </div>
+          <%}%>
+        </div>
+      </div>
+      <!--/.Second slide-->
+
+      <!--Third slide-->
+      <div class="carousel-item">
+        <div class="row">
+          <% for(let i=6; i<9; i++) { 
+            z = ranNum(min, max);
+          %>
+          <div class="col-md-4 listing-index-box">
+            <div class="single-listing d-flex flex-column h-100">
+              <a class="title-link" href="/listing/<%=listings[z].category.slug%>/<%=listings[z]._id%>">
+                <img src="<%= listings[z].imagePath %>" alt="Listing" class="img-fluid"/>
+              </a>
+              <div class="listing-info">
+                <a class="title-link" href="/listing/<%=listings[z].category.slug%>/<%=listings[z]._id%>">
+                  <h6 class="mt-2 mb-2"><%= listings[z].title %></h6>
+                </a>
+                <div class="price">$<%= listings[z].price %></div>
+              </div>
+              <% if(listings[z].available) {%>
+              <a href="/add-to-cart/<%=listings[z]._id%>" class="btn btn-block btn-secondary button-style mt-auto mb-2">
+                Add to Shopping Cart
+              </a>
+              <% } else { %>
+              <a href="#" class="btn btn-block btn-danger button-style-danger mt-2 mb-2">
+                Currently being Rented!
+              </a>
+              <%} %>
+            </div>
+          </div>
+          <%}%>
+        </div>
+      </div>
+      <!--/.Third slide-->
+    </div>
+    <!--/.Slides-->
+  </div>
+  <!--/.Carousel Wrapper-->
+</div>
+<%- include ('../partials/footer') %> 

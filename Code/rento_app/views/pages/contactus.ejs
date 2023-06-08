@@ -1,0 +1,88 @@
+<%- include ('../partials/header') %>
+<%- include ('../partials/navigation') %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-12 m-auto">
+      <h1 class="mt-4 mb-4 text-center">Contact Us</h1>
+      <!-- Flash message -->
+      <% if (successMsg != null && successMsg) { %>
+        <div id="success" class="alert alert-success">
+          <%= successMsg %>
+        </div>
+      <% } %>
+    </div>
+    <div class="col-lg-8 col-md-12 text-justify m-auto">
+      <!-- Introduction -->
+    <div class="mt-4 mb-4">
+      <p>
+        Questions? Complaints?? Comments??? Please feel free to send us an email or call us, using on
+        of the contact options below. While we are located at CSUN, we are not taking any in person visits.<br />
+        <br><b>Hour of Operations</b><br/>
+        <i>Tuesday and Thursday from 7:00 PM to 9:30 PM</i><br>
+        Please allow us to message you as soon as we can, within 24 hours or less. Any messages sent over the 
+        weekends will get a response on Monday, unless a holiday lands that same day, which in that case, Tuesday.
+      </p>
+    </div>
+      <!-- Email contacts -->
+      <div class="mt-4 mb-4">
+        <p>
+          <h6><i>Contact us by email:</i></h6>
+        </p>
+        <p>
+          Our Email:
+          <a href="mailto: cristian.ramirez.635@my.csun.edu" class = "contact-email"><i class="fa fa-envelope" aria-hidden="true"></i><u>cristian.ramirez.635@my.csun.edu</u></a>
+        </p>
+      </div>
+      <!-- Phone contacts -->
+      <div class="mt-4 mb-4">
+        <p>
+          <h6><i>Contact us by phone:</i></h6>
+        </p>
+        <p>
+          Call Center:
+          <a href="tel:818-123-4567" class = "contact-email">
+            <i class="fa fa-phone" aria-hidden="true"></i>
+            (818)123-4567
+           </a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Contact us form -->
+    <div class="col-lg-8 col-md-12 m-auto">
+      <div class="mt-5 mb-4">
+        <h2>Contact Us Form</h2>
+        <!-- Error flash message -->
+        <% if(errorMsg!=null && errorMsg.length>0) {%>
+          <div id="flash-msg" class="alert alert-danger">
+            <% errorMsg.forEach((message) => { %>
+            <p>
+              <%=message %>
+            </p>
+            <%}) %>
+          </div>
+          <%}%>
+        <form action="/pages/contactus" method="POST">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="name" class="form-control" name="name" id="name" placeholder = "John Cena" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" name="email" id="email" placeholder = "you.cant.see.me@smackdown.wwe" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Message contents</label>
+            <textarea class="form-control" name="message" id="message" rows="5" placeholder="Please write your message here..." required></textarea>
+          </div>
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+          <button type="submit" class="btn btn-primary button-style">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include ('../partials/footer') %>

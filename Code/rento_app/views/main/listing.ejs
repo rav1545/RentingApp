@@ -1,0 +1,64 @@
+<%- include ('../partials/header') %> 
+<%- include ('../partials/navigation') %> 
+
+<div class="container">
+  <!-- Flash messages -->
+  <div class="row mt-3 mb-3">
+    <div class="col-md-12 m-auto">
+      <% if (successMsg) { %>
+      <div id="success" class="alert alert-success">
+        <%= successMsg %>
+      </div>
+      <% } else { %>
+      <div id="success" class="alert alert-success d-none"></div>
+      <% } %>
+    </div>
+    <div class="col-md-12 m-auto">
+      <% if (errorMsg) { %>
+      <div id="error" class="alert alert-danger">
+        <%= errorMsg %>
+      </div>
+      <% } else { %>
+      <div id="error" class="alert alert-danger d-none"></div>
+      <% } %>
+    </div>
+  </div>
+  <!-- Listing info -->
+  <div class="row mt-4 mb-4">
+    <div class="col-md-5 mt-2 mr-2 ml-auto">
+      <img
+        src="<%=listing.imagePath%>"
+        class="img-fluid product-img"
+        alt="product image"
+      />
+    </div>
+    <div class="col-md-5 mt-2 mb-2 ml-2 mr-auto text-dark">
+      <h2><%=listing.title%></h2>
+      <hr />
+      <p class="price">USD $<%=listing.price%> per day</p>
+      <p class="lead"> Description: 
+        <p><%=listing.description%></p>
+      </p>
+      <p> Rating <i class="fa-solid fa-star"></i>: <%=listingR.ratings%> / 5</p>
+      </p>
+      
+      <p><strong>Category:</strong> <%=listing.category.title%></p>
+      <p>
+        <strong>Contact: </strong><br><%=listing.contactN%>
+        <br><a href= "mailto: <%=listing.contactE%>" class = "listing-email"><%=listing.contactE%></a>
+        <br><%=listing.contactP%>
+      </p>
+      <p><strong>Date added to the store:</strong> <%= moment(listing.createdAt).format( 'MMMM Do YYYY')%></p>
+      <% if(listing.available) {%>
+      <p class="is-available text-center">Available</p>
+      <a href="/add-to-cart/<%=listing._id%>" class="btn btn-block btn-secondary mt-3 mb-3 button-style">
+        Add to Shopping Cart
+      </a>
+      <% } else { %>
+      <p class="is-not-available text-center">Currently being rented</p>
+      <%} %>
+    </div>
+  </div>
+</div>
+
+  <%- include ('../partials/footer') %> 

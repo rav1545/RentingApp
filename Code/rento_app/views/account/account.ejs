@@ -1,0 +1,103 @@
+<%- include ('../partials/header') %>
+<%- include ('../partials/navigation') %>
+
+<div class="container">
+  <!-- Flash messages -->
+      <div class="row mt-3 mb-3">
+        <div class="col-md-8 m-auto">
+          <% if (successMsg) { %>
+          <div id="success" class="alert alert-success">
+            <%= successMsg %>
+          </div>
+          <% } else { %>
+          <div id="success" class="alert alert-success d-none"></div>
+          <% } %>
+        </div>
+        <div class="col-md-8 m-auto">
+          <% if (errorMsg) { %>
+          <div id="error" class="alert alert-danger">
+            <%= errorMsg %>
+          </div>
+          <% } else { %>
+          <div id="error" class="alert alert-danger d-none"></div>
+          <% } %>
+        </div>
+      </div>
+      <!-- Account Details -->
+  <div class="row mt-4">
+    <div class="col-md-8 m-auto">
+      <p>
+        <h3>Account Details</h3>
+        <b>Account Id</b>: <%= account[0].accountId %> <br> <br>
+        <b>Full Name</b>: <%= account[0].fullname %> <br> <br>
+        <b>Phone</b>: <%= account[0].phone %> <br> <br>
+        <b>Email</b>: <%= account[0].email %> <br> <br>
+        <b>Password</b>: ******** <br><br>
+
+        <h4>Your account's rating</h4>
+        This is based on the interaction you had with other users via in the transaction. 
+        Any complaint or concern please contact us at the <a class = "signup" href="/pages/contactus" title="Contact Us">contact page</a>.
+        <br><b>Current Rating</b> <i class="fa-solid fa-star"></i>: <%=rating[0].ratings%> / 5
+      </p>
+    </div>
+  </div>
+  <!-- User's orders -->
+  <div class="row mt-4">
+    <div class="col-md-8 m-auto">
+      <% if (orders != null && orders.length > 0) { %>
+      <h3>My orders</h3>
+      <% orders.forEach( order => { %>
+      <div class="card m-3">
+        <div class="card-body">
+          <p class="card-text ">
+            <ul class="list-group">
+              <% order.cart.items.forEach( item => { %>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <%= item.title %> | <%= item.qty %> Units
+                <span class="badge badge-info badge-pill"><%= item.price %></span>
+              </li>
+              <%}) %>
+            </ul>
+          </p>
+        </div>
+        <div class="card-footer">
+          <strong>Total Price: $<%= order.cart.totalCost %></strong>
+        </div>
+      </div>
+      <%}) %>
+      <%} else { %>
+        <h3 class="text-center" >You have not made any orders yet</h3>
+      <%} %>
+    </div>
+  </div>
+  <!-- User's listings -->
+  <div class="row mt-4">
+    <div class="col-md-8 m-auto">
+      <% if (listings != null && listings.length > 0) { %>
+      <h3>My Listings</h3>
+      <% listings.forEach( listing => { %>
+      <div class="card m-3">
+        <div class="card-body">
+          <p class="card-text ">
+            <a class="title-link" href="/listing/<%=listing.category.slug%>/<%=listing._id%>">
+              <img src="<%=listing.imagePath%>" class="img-small image-fluid account-listing" alt="listing thumbnail" />
+            </a>
+            <br>Title: <%= listing.title%><br>
+            Price:  <%= listing.price%><br>
+            Go to Listing
+              <%}) %>
+          </p>
+        </div>
+      </div>
+      <%} else { %>
+        <h3 class="text-center" >You have not made any listings yet</h3>
+      <%} %>
+    </div>
+  </div>
+  Want to list an item and earn money? Create a Listing!
+  <a href="/account/create" class="btn btn-block btn-secondary mt-3 mb-3 button-style create">
+    Create a Listing
+  </a>
+</div>  
+
+<%- include ('../partials/footer') %>

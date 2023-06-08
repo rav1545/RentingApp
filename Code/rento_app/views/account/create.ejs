@@ -1,0 +1,60 @@
+<%- include ('../partials/header') %> 
+<%- include ('../partials/navigation') %> 
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 m-auto">
+      <h1 class="mt-4 mb-4">Creat a New Listing</h1>
+      <% if(errorMsg != null && errorMsg.length>0) {%>
+      <div id="flash-msg" class="alert alert-danger">
+        <%=errorMsg %>
+      </div>
+      <%}%>
+      <form action="/account/create" method="POST">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="name" class="form-control" name="title" id="title" required/>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" name="description" id="description" rows="5" placeholder="Please write your description here. Please include the condition and anything the users need to be aware." required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="image">Image link</label>
+          <input type="url" class="form-control" name="image" id="image" placeholder = "Please include an url for the image you want to use." required/>
+        </div>
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input type="text" class="form-control" name="price" id="price" required>
+        </div>
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input type="text" class="form-control" name="location" id="location" placeholder = "City, State and Zip Code" required/>
+        </div>
+        <div class="form-group">
+          Category:<br>
+          <input type="radio" id="clothing" name="category" value="Clothing">
+          <label for="clothing">Clothing</label><br>
+          <input type="radio" id="electronic" name="category" value="Electronics">
+          <label for="electronic">Electronic</label><br>
+          <input type="radio" id="gaming" name="category" value="Gaming">
+          <label for="gaming">Gaming</label><br>
+          <input type="radio" id="music" name="category" value="Music">
+          <label for="music">Music</label><br>
+          <input type="radio" id="outdoor" name="category" value="Outdoors">
+          <label for="outdoor">Outdoor</label><br>
+          <input type="radio" id="sport" name="category" value="Sports">
+          <label for="sport">Sport</label><br>
+          <input type="radio" id="vehicle" name="category" value="Vehicles">
+          <label for="vehicle">Vehicle</label><br>
+        </div>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <button type="submit" class="btn btn-primary button-style">
+          Create
+        </button>
+      </form>
+    </div>
+  </div>
+</div>  
+
+  <%- include ('../partials/footer') %> 
